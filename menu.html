@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Brew House Coffee</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/simple-boxes.css">
+    <link rel="stylesheet" href="css/fixes/box-fix.css">
+    <link rel="stylesheet" href="css/fixes/simple-mobile.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/menu-boxes.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="js/universal-menu.js"></script>
+    <script src="js/simple-menu.js"></script>
+    <script src="js/navbar.js"></script>
+    <style>
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .navbar {
+            background-color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+            width: 120px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #663300;
+        }
+
+        .cart-login {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .cart-login a {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .sign-in {
+            color: #333;
+            border: 1px solid #333;
+        }
+
+        .sign-in:hover {
+            background-color: #333;
+            color: white;
+        }
+
+        .order-pickup {
+            background-color: #663300;
+            color: white;
+        }
+
+        .order-pickup:hover {
+            background-color: #552700;
+        }
+
+        main {
+            margin-top: 0;
+            padding-top: 0;
+        }
+        /* Menu-specific styles */
+        .filter-options {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            background-color: white;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 72px;
+            z-index: 10;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            color: #663300;
+            font-weight: bold;
+        }
+
+        .filter-btn:hover {
+            color: #663300;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-grid .container {
+            display: contents;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-item-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .menu-item-content {
+            padding: 1.5rem;
+        }
+
+        .menu-item-content h3 {
+            margin: 0 0 0.5rem 0;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .menu-item-content p {
+            color: #666;
+            margin: 0 0 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .menu-item-content .price {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #663300;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #663300;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #552700;
+        }
+
+        @media (max-width: 768px) {
+            .filter-options {
+                flex-wrap: wrap;
+                padding: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.9rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+        }
+
+        @media screen and (max-width: 1300px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .logo {
+                display: none;
+            }
+
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 3rem;
+                transition: right 0.5s ease;
+                z-index: 1000;
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            .nav-links.active {
+                right: 0;
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .burger {
+                display: block;
+                z-index: 1001;
+            }
+
+            .burger.active .line1 {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .burger.active .line2 {
+                opacity: 0;
+            }
+
+            .burger.active .line3 {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .cart-login {
+                display: none;
+            }
+
+            .cart-login.active {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                bottom: 2rem;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1001;
+            }
+        }
+
+        @media screen and (min-width: 1301px) {
+            .burger {
+                display: none;
+            }
+
+            .nav-links {
+                display: flex;
+                position: static;
+                height: auto;
+                width: auto;
+                background-color: transparent;
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .cart-login {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="index.html" class="navbar-logo">Brew House</a>
+            </div>
+            
+            <button class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="navbar-menu">
+                <ul class="navbar-start">
+                    <li class="navbar-item">
+                        <a href="index.html" class="navbar-link">Home</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="menu.html" class="navbar-link is-active">Menu</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="locations.html" class="navbar-link">Locations</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="about.html" class="navbar-link">About</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="contact.html" class="navbar-link">Contact</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="news.html" class="navbar-link">News</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="page-header fade-in">
+            <div class="container">
+                <h1>Our Menu</h1>
+                <p>Discover our handcrafted coffee selection</p>
+            </div>
+        </section>
+
+        <section class="filter-options fade-in">
+            <div class="container">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="coffee">Coffee</button>
+                <button class="filter-btn" data-filter="tea">Tea</button>
+                <button class="filter-btn" data-filter="pastries">Pastries</button>
+            </div>
+        </section>
+
+        <section class="menu-grid fade-in">
+            <div class="container">
+                <!-- Coffee Drinks -->
+                <div class="menu-item" data-category="coffee">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1580933073521-dc49bba0a53a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=450&q=80" alt="Treasure Blend">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Treasure Blend</h3>
+                        <p>Caramel, Chocolate, Nuts | Medium Roast | 16oz</p>
+                        <span class="price">$22.50</span>
+                        <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="coffee">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1559525323-71b0a3611298?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=450&q=80" alt="Hazelnut Dream">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Hazelnut Dream</h3>
+                        <p>Hazelnut Flavoring, Maple, Caramel | Flavored | 16oz</p>
+                        <span class="price">$22.50</span>
+                        <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="coffee">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1518057111178-44a106bad149?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=450&q=80" alt="Midnight Roast">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Midnight Roast</h3>
+                        <p>Dark Chocolate, Berry, Smoke | Dark | 16oz</p>
+                        <span class="price">$22.50</span>
+                        <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="coffee">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1587734361993-0884bf0bc003?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=450&q=80" alt="Morning Sunshine">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Morning Sunshine</h3>
+                        <p>Citrus, Floral, Honey | Light | 16oz</p>
+                        <span class="price">$22.50</span>
+                        <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="coffee">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=450&q=80" alt="Decaf Delight">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Decaf Delight</h3>
+                        <p>Chocolate, Nuts, Raisin | Decaf | 16oz</p>
+                        <span class="price">$22.50</span>
+                        <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="coffee">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=450&q=80" alt="Vanilla Dream">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Vanilla Dream</h3>
+                        <p>Vanilla, Caramel, Cream | Flavored | 16oz</p>
+                        <span class="price">$22.50</span>
+                        <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Tea Selection -->
+                <div class="menu-item" data-category="tea">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=450&q=80" alt="Earl Grey Tea">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Earl Grey Tea</h3>
+                        <p>Bergamot, Citrus, Floral | Black Tea | 16oz</p>
+                        <span class="price">$18.50</span>
+                        <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="tea">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=450&q=80" alt="Matcha Latte">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Matcha Latte</h3>
+                        <p>Premium Matcha, Milk, Honey | Green Tea | 16oz</p>
+                        <span class="price">$19.50</span>
+                        <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Pastries -->
+                <div class="menu-item" data-category="pastries">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=450&q=80" alt="Chocolate Croissant">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Chocolate Croissant</h3>
+                        <p>Buttery Pastry, Dark Chocolate | Fresh Baked</p>
+                        <span class="price">$4.50</span>
+                        <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="pastries">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=450&q=80" alt="Blueberry Muffin">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Blueberry Muffin</h3>
+                        <p>Fresh Blueberries, Cinnamon | Fresh Baked</p>
+                        <span class="price">$3.75</span>
+                        <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="pastries">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=450&q=80" alt="Cinnamon Roll">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Cinnamon Roll</h3>
+                        <p>Cinnamon, Cream Cheese Frosting | Fresh Baked</p>
+                        <span class="price">$4.25</span>
+                        <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="tea">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=450&q=80" alt="Chai Latte">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Chai Latte</h3>
+                        <p>Spiced Chai, Milk, Honey | Tea Latte | 16oz</p>
+                        <span class="price">$19.50</span>
+                        <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="pastries">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=450&q=80" alt="Almond Croissant">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Almond Croissant</h3>
+                        <p>Buttery Pastry, Almond Filling | Fresh Baked</p>
+                        <span class="price">$4.75</span>
+                        <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="menu.html">Coffee</a></li>
+                        <li><a href="#">Subscriptions</a></li>
+                        <li><a href="#">Merchandise</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                        <li><a href="#">Wholesale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="news.html">News</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <address>
+                        Brew House Coffee<br>
+                        123 Coffee Street<br>
+                        San Francisco, CA 94123<br>
+                        <a href="mailto:hello@brewhouse.com">hello@brewhouse.com</a>
+                    </address>
+                </div>
+                <div class="footer-column">
+                    <h4>Download our App</h4>
+                    <div class="app-download">
+                        <a href="#" class="app-badge">App Store</a>
+                        <a href="#" class="app-badge">Google Play</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Brew House Coffee. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="js/menu-boxes.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html> 
