@@ -1,0 +1,168 @@
+/* Simple Brown Boxes CSS */
+.image-box {
+  position: relative !important;
+  width: 100% !important;
+  padding-bottom: 75% !important; /* 4:3 aspect ratio */
+  background-color: #A67C52 !important;
+  border: 4px solid #663300 !important; /* Consistent border on all sides */
+  border-radius: 8px !important;
+  box-shadow: 0 0 10px rgba(102, 51, 0, 0.25) !important; /* Even shadow on all sides */
+  margin: 0 !important; /* No margins */
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  font-size: 0 !important; /* Remove any whitespace issues */
+  line-height: 0 !important; /* Remove any height issues */
+}
+
+.image-box img {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  transition: transform 0.4s ease !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  display: block !important; /* Prevent any spacing issues */
+}
+
+/* Hover effect for images */
+.image-box:hover img {
+  transform: scale(1.1) !important;
+}
+
+/* Add background to ensure no white space */
+.image-box::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #A67C52 !important;
+  z-index: 0;
+}
+
+.image-box img {
+  position: relative;
+  z-index: 1;
+}
+
+/* Content overlay for all menu items */
+.menu-item-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(111, 78, 55, 0.95);
+  color: #fff;
+  padding: 1.5rem;
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+  z-index: 3;
+  background-image: url('https://www.transparenttextures.com/patterns/dark-wood.png');
+  background-blend-mode: overlay;
+}
+
+/* Slide up content on hover */
+.menu-item:hover .menu-item-content {
+  transform: translateY(0);
+}
+
+/* Update specific styling for different sections */
+.menu-item {
+  position: relative !important;
+  overflow: hidden !important;
+  margin-bottom: 1.5rem !important; /* Consistent margin */
+  display: block !important;
+  line-height: 0 !important; /* Remove any height issues */
+  font-size: 0 !important; /* Remove any font space issues */
+}
+
+/* Typography for content overlays */
+.menu-item-content h4 {
+  margin-bottom: 0.5rem;
+  color: #fff;
+  font-size: 1.4rem;
+}
+
+.menu-item-content p {
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.menu-item-content .price {
+  font-weight: bold;
+  color: #d4a152;
+  display: block;
+  font-size: 1.3rem;
+}
+
+/* Force box model consistency */
+* {
+  box-sizing: border-box !important;
+}
+
+/* Apply brown boxes to all image containers */
+[class*="-item"] .image-box,
+.menu-grid .image-box {
+  background-color: #A67C52 !important;
+  border-width: 4px !important;
+  border-style: solid !important;
+  border-color: #663300 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 10px rgba(102, 51, 0, 0.25) !important; /* Even shadow on all sides */
+}
+
+/* Special styling for coffee actions */
+.coffee-actions {
+  margin-top: 0.75rem;
+}
+
+.coffee-options {
+  margin-bottom: 0.5rem;
+}
+
+.coffee-options label {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.coffee-options select {
+  width: 100%;
+  padding: 0.3rem;
+  border: 1px solid #d4a152;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.add-to-cart {
+  width: 100%;
+  padding: 0.5rem;
+  background: #d4a152;
+  border: none;
+  color: #663300;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.add-to-cart:hover {
+  background: #e6b966;
+}
+
+/* Apply consistent styling to all menu items */
+.menu-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+  gap: 20px !important;
+  margin-bottom: 2rem !important;
+} 

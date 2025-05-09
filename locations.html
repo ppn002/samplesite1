@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locations - Brew House Coffee</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/simple-boxes.css">
+    <link rel="stylesheet" href="css/fixes/box-fix.css">
+    <link rel="stylesheet" href="css/fixes/simple-mobile.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/simple-menu.js"></script>
+    <style>
+        .navbar {
+            background-color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+            width: 120px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #663300;
+        }
+
+        .cart-login {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .cart-login a {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .sign-in {
+            color: #333;
+            border: 1px solid #333;
+        }
+
+        .sign-in:hover {
+            background-color: #333;
+            color: white;
+        }
+
+        .order-pickup {
+            background-color: #663300;
+            color: white;
+        }
+
+        .order-pickup:hover {
+            background-color: #552700;
+        }
+
+        main {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .map-container {
+            height: 500px;
+            margin: 2rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        .location-link {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .location-link:hover {
+            color: #663300;
+        }
+
+        .location-link.active {
+            color: #663300;
+            font-weight: bold;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .search-box button {
+            padding: 0.8rem 1.5rem;
+            background-color: #663300;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-box button:hover {
+            background-color: #552700;
+        }
+
+        .location-detail {
+            padding: 4rem 0;
+            background-color: #f9f9f9;
+        }
+
+        .location-detail .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .location-detail-text {
+            max-width: 500px;
+        }
+
+        .location-detail-text h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .location-detail-text p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature i {
+            font-size: 2rem;
+            color: #663300;
+            margin-bottom: 1rem;
+        }
+
+        .feature h4 {
+            margin: 0.5rem 0;
+            color: #333;
+        }
+
+        .feature p {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .location-detail .container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .location-detail-text {
+                max-width: 100%;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 1300px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .logo {
+                display: none;
+            }
+
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 3rem;
+                transition: right 0.5s ease;
+                z-index: 1000;
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            .nav-links.active {
+                right: 0;
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .burger {
+                display: block;
+                z-index: 1001;
+            }
+
+            .burger.active .line1 {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .burger.active .line2 {
+                opacity: 0;
+            }
+
+            .burger.active .line3 {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .cart-login {
+                display: none;
+            }
+
+            .cart-login.active {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                bottom: 2rem;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1001;
+            }
+        }
+
+        @media screen and (min-width: 1301px) {
+            .burger {
+                display: none;
+            }
+
+            .nav-links {
+                display: flex;
+                position: static;
+                height: auto;
+                width: auto;
+                background-color: transparent;
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .cart-login {
+                display: flex;
+            }
+        }
+    </style>
+    <!-- Add Google Maps JavaScript API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="index.html" class="navbar-logo">Brew House</a>
+            </div>
+            
+            <button class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="navbar-menu">
+                <ul class="navbar-start">
+                    <li class="navbar-item">
+                        <a href="index.html" class="navbar-link">Home</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="menu.html" class="navbar-link">Menu</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="locations.html" class="navbar-link is-active">Locations</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="about.html" class="navbar-link">About</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="contact.html" class="navbar-link">Contact</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="news.html" class="navbar-link">News</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Our Locations</h1>
+                <p>Find a Brew House near you</p>
+            </div>
+        </section>
+
+        <section class="location-finder">
+            <div class="container">
+                <div class="search-box">
+                    <input type="text" id="location-search" placeholder="Enter zip code or city">
+                    <button type="submit" onclick="searchLocations()">Find Locations</button>
+                </div>
+                <div class="map-container">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="location-detail">
+            <div class="container">
+                <div class="location-detail-text">
+                    <h2>Find Your Brew House Experience</h2>
+                    <p>Each Brew House location has its own unique character while maintaining our signature quality and service. Visit us to experience our handcrafted coffees in a warm, welcoming atmosphere.</p>
+                    <p>Whether you're looking for a quiet spot to work, a place to meet friends, or just a moment to enjoy your favorite brew, our locations are designed to make you feel at home.</p>
+                </div>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-wifi"></i>
+                        <h4>Free Wi-Fi</h4>
+                        <p>Stay connected while you enjoy your coffee.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-laptop"></i>
+                        <h4>Work-Friendly</h4>
+                        <p>Comfortable spaces perfect for remote work.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-users"></i>
+                        <h4>Community Events</h4>
+                        <p>Join us for coffee tastings and more.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-leaf"></i>
+                        <h4>Eco-Friendly</h4>
+                        <p>Committed to sustainable practices.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="interested-wholesale">
+            <div class="container">
+                <h2>Interested in Wholesale?</h2>
+                <p>Bring Brew House coffee to your business. We partner with restaurants, cafes, offices, and more.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="menu.html">Coffee</a></li>
+                        <li><a href="#">Subscriptions</a></li>
+                        <li><a href="#">Merchandise</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                        <li><a href="#">Wholesale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="news.html">News</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <address>
+                        Brew House Coffee<br>
+                        123 Coffee Street<br>
+                        San Francisco, CA 94123<br>
+                        <a href="mailto:hello@brewhouse.com">hello@brewhouse.com</a>
+                    </address>
+                </div>
+                <div class="footer-column">
+                    <h4>Download our App</h4>
+                    <div class="app-download">
+                        <a href="#" class="app-badge">App Store</a>
+                        <a href="#" class="app-badge">Google Play</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Brew House Coffee. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Store location data
+        const locations = {
+            'san-francisco': [
+                { name: 'Downtown', lat: 37.7895, lng: -122.4007, address: '101 Market St, San Francisco, CA 94105' },
+                { name: 'Mission District', lat: 37.7521, lng: -122.4185, address: '3101 24th St, San Francisco, CA 94110' },
+                { name: 'Marina', lat: 37.8024, lng: -122.4368, address: '2030 Chestnut St, San Francisco, CA 94123' },
+                { name: 'Sunset', lat: 37.7626, lng: -122.4837, address: '1234 Irving St, San Francisco, CA 94122' }
+            ],
+            'bay-area': [
+                { name: 'Oakland', lat: 37.8044, lng: -122.2712, address: '2224 Broadway, Oakland, CA 94612' },
+                { name: 'Berkeley', lat: 37.8715, lng: -122.2730, address: '2128 Oxford St, Berkeley, CA 94704' },
+                { name: 'San Jose', lat: 37.3382, lng: -121.8863, address: '350 Santana Row, San Jose, CA 95128' },
+                { name: 'Palo Alto', lat: 37.4419, lng: -122.1430, address: '448 University Ave, Palo Alto, CA 94301' }
+            ],
+            'los-angeles': [
+                { name: 'Santa Monica', lat: 34.0195, lng: -118.4912, address: '1356 3rd St, Santa Monica, CA 90401' },
+                { name: 'Venice', lat: 33.9850, lng: -118.4695, address: '1202 Abbot Kinney Blvd, Venice, CA 90291' },
+                { name: 'Downtown LA', lat: 34.0522, lng: -118.2437, address: '735 S Figueroa St, Los Angeles, CA 90017' },
+                { name: 'Silver Lake', lat: 34.0928, lng: -118.2769, address: '3158 Sunset Blvd, Los Angeles, CA 90026' }
+            ],
+            'san-diego': [
+                { name: 'La Jolla', lat: 32.8328, lng: -117.2713, address: '1010 Prospect St, La Jolla, CA 92037' },
+                { name: 'Downtown', lat: 32.7157, lng: -117.1611, address: '675 Market St, San Diego, CA 92101' },
+                { name: 'North Park', lat: 32.7483, lng: -117.1292, address: '3000 University Ave, San Diego, CA 92104' }
+            ]
+        };
+
+        let map;
+        let markers = [];
+        let infoWindow;
+
+        function initMap() {
+            // Initialize the map centered on San Francisco
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 37.7749, lng: -122.4194 },
+                zoom: 12,
+                styles: [
+                    {
+                        "featureType": "poi",
+                        "elementType": "labels",
+                        "stylers": [{ "visibility": "off" }]
+                    }
+                ]
+            });
+
+            infoWindow = new google.maps.InfoWindow();
+
+            // Add click listeners to location links
+            document.querySelectorAll('.location-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const locationName = this.textContent.trim();
+                    const location = findLocationByName(locationName);
+                    if (location) {
+                        showLocationOnMap(location);
+                    }
+                });
+            });
+
+            // Add markers for all locations
+            Object.values(locations).flat().forEach(location => {
+                addMarker(location);
+            });
+        }
+
+        function addMarker(location) {
+            const marker = new google.maps.Marker({
+                position: { lat: location.lat, lng: location.lng },
+                map: map,
+                title: location.name
+            });
+
+            marker.addListener('click', () => {
+                infoWindow.setContent(`
+                    <div style="padding: 8px;">
+                        <h3 style="margin: 0 0 8px 0;">${location.name}</h3>
+                        <p style="margin: 0;">${location.address}</p>
+                    </div>
+                `);
+                infoWindow.open(map, marker);
+            });
+
+            markers.push(marker);
+        }
+
+        function findLocationByName(name) {
+            return Object.values(locations).flat().find(loc => loc.name === name);
+        }
+
+        function showLocationOnMap(location) {
+            map.setCenter({ lat: location.lat, lng: location.lng });
+            map.setZoom(15);
+        }
+
+        function searchLocations() {
+            const searchInput = document.getElementById('location-search').value;
+            if (!searchInput) return;
+
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ address: searchInput }, (results, status) => {
+                if (status === 'OK') {
+                    const location = results[0].geometry.location;
+                    map.setCenter(location);
+                    map.setZoom(12);
+                } else {
+                    alert('Location not found. Please try another search term.');
+                }
+            });
+        }
+    </script>
+</body>
+</html> 

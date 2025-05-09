@@ -1,0 +1,332 @@
+/* Contact Page Styles */
+.contact-options {
+    padding: 160px 0 4rem 0;  /* Increased top padding to create more space below navbar */
+    background-color: #f9f9f9;
+    margin-top: 0;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.contact-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+    margin-top: 50px;  /* Added margin to move cards down */
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+}
+
+.contact-card i {
+    font-size: 2.5rem;
+    color: #663300;
+    margin-bottom: 1rem;
+}
+
+.contact-card h3 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.contact-card p {
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.contact-card a {
+    color: #663300;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.contact-card a:hover {
+    color: #552700;
+}
+
+.contact-card address {
+    font-style: normal;
+    color: #666;
+    margin: 1rem 0;
+}
+
+.visit-card {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    margin-top: 0;  /* Reset margin for visit card */
+}
+
+.visit-info {
+    text-align: left;
+}
+
+.visit-info h3 {
+    margin-bottom: 1rem;
+}
+
+.visit-info address {
+    margin-bottom: 1rem;
+}
+
+.visit-button {
+    background-color: #663300;
+    color: white !important;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+    display: inline-block;
+    min-width: 200px;
+    text-align: center;
+}
+
+.visit-button:hover {
+    background-color: #552700;
+}
+
+/* Contact Form Section */
+.contact-form {
+    padding: 6rem 0 4rem 0;  /* Increased top padding from 4rem to 6rem */
+    background-color: #fff;
+}
+
+.contact-form .container {
+    max-width: 1000px;  /* Increased from 800px to match other sections */
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.contact-form h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+    font-size: 2.5rem;
+}
+
+.contact-form form {
+    max-width: 100%;  /* Allow form to take full width */
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #663300;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(102, 51, 0, 0.1);
+}
+
+.form-group textarea {
+    min-height: 200px;  /* Increased height for message box */
+    resize: vertical;
+}
+
+.cta-button {
+    background-color: #663300;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 2rem auto 0;
+}
+
+.cta-button:hover {
+    background-color: #552700;
+}
+
+/* Map Section */
+.map-section {
+    padding: 3rem 0;
+    background-color: #f9f9f9;
+}
+
+.map-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.map-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.map-wrapper {
+    height: 450px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+}
+
+/* FAQ Section */
+.faq {
+    padding: 6rem 0 4rem 0;  /* Increased top padding from 4rem to 6rem */
+    background-color: #f9f9f9;
+}
+
+.faq .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.faq h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #333;
+    font-size: 2.5rem;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.faq-item {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.faq-item:hover {
+    transform: translateY(-5px);
+}
+
+.faq-item h3 {
+    color: #663300;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.faq-item p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Pre-footer spacing */
+.pre-footer-spacing {
+    padding: 4rem 0;
+    background-color: #f9f9f9;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .visit-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .visit-info {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    
+    .contact-card,
+    .visit-card {
+        padding: 1.5rem;
+    }
+    
+    .map-wrapper {
+        height: 350px;
+    }
+    
+    .contact-options {
+        padding: 130px 0 4rem 0;  /* Adjusted padding for mobile navbar height */
+    }
+    
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .faq-item {
+        padding: 1.5rem;
+    }
+
+    .pre-footer-spacing {
+        padding: 3rem 0;  /* Slightly reduced padding on mobile */
+    }
+    
+    .contact-form {
+        padding: 4rem 0 3rem 0;  /* Adjusted padding for mobile */
+    }
+    
+    .faq {
+        padding: 4rem 0 3rem 0;  /* Adjusted padding for mobile */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .contact-options {
+        padding: 3rem 0;
+    }
+    
+    .contact-form-section {
+        padding: 3rem 0;
+    }
+    
+    .contact-card i {
+        font-size: 2rem;
+    }
+    
+    .visit-button {
+        padding: 0.75rem 1.5rem;
+    }
+    
+    .map-wrapper {
+        height: 300px;
+    }
+}
+
+.page-header {
+    padding-top: 80px;  /* Add padding to create space below navbar */
+} 
